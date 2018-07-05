@@ -1,0 +1,5 @@
+FROM alpine/git
+
+WORKDIR /usr/src/codebase
+
+RUN git clone --depth 1 https://github.com/tgstation/tgstation.git .

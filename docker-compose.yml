@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  codebase:
+    build:
+      context: .
+      dockerfile: codebase/dockerfile-codebase
+    volumes:
+      - codebase:/usr/src/codebase
+    command: pull /usr/src/codebase
+
+  renderbus:
+    build:
+      context: .
+      dockerfile: renderer/dockerfile-spacemandmm
+    tty: true
+    volumes: 
+      - ./output:/output
+      - codebase:/usr/src/codebase
+
+volumes:
+  codebase:
