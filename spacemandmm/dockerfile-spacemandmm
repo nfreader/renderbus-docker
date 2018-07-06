@@ -1,7 +1,7 @@
 FROM rust:latest
 
 WORKDIR /usr/src/spacemandmm
-RUN apt-get update && apt-get install -y --no-install-recommends cmake pngcrush git python
+RUN apt-get clean && rm -r /var/lib/apt/lists/* && apt-get update && apt-get install -y --no-install-recommends cmake
 
 RUN git clone https://github.com/SpaceManiac/SpacemanDMM.git .
 
@@ -10,7 +10,5 @@ RUN cargo build -p cli --release
 # Clean apt cache
 RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-COPY renderer/render.py render.py
-RUN chmod +x render.py
-
-CMD ["/usr/bin/python", "render.py" ]
+ENTRYPOINT ['/usr/src/spacemandmm/target/release/dmm-tools minimap']
+CMD ['--help']

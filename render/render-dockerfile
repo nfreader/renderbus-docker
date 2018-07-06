@@ -1,0 +1,17 @@
+FROM python:2.7
+
+WORKDIR /usr/src/render
+
+#Install imagemagick and pngcrush
+RUN apt-get update && apt-get install -y --no-install-recommends imagemagick pngcrush
+
+# Clean apt cache
+RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+COPY render/app.py app.py
+COPY render/tile.sh tile.sh
+
+RUN chmod +x app.py
+RUN chmod +x tile.sh
+
+

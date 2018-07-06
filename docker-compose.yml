@@ -10,14 +10,28 @@ services:
       - codebase:/usr/src/codebase
     command: pull /usr/src/codebase
 
-  renderbus:
+  spacemandmm:
     build:
       context: .
-      dockerfile: renderer/dockerfile-spacemandmm
+      dockerfile: spacemandmm/dockerfile-spacemandmm
     tty: true
     volumes: 
-      - ./output:/output
+      - spacemandmm:/usr/src/spacemandmm/target/release
+
+  renderbus:
+    depends_on:
+      - spacemandmm
+      - codebase
+    build:
+      context: .
+      dockerfile: render/render-dockerfile
+    tty: true
+    volumes: 
       - codebase:/usr/src/codebase
+      - spacemandmm:/usr/src/spacemandmm/target/release
+      - ./output:/output
+    command: python app.py
 
 volumes:
   codebase:
+  spacemandmm:
