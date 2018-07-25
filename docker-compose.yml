@@ -6,9 +6,10 @@ services:
     build:
       context: .
       dockerfile: codebase/dockerfile-codebase
+    tty: true
     volumes:
       - codebase:/usr/src/codebase
-    command: pull /usr/src/codebase
+    command: pull
 
   spacemandmm:
     build:
@@ -31,6 +32,20 @@ services:
       - spacemandmm:/usr/src/spacemandmm/target/release
       - ./output:/output
     command: python app.py
+
+  # serve:
+  #   depends_on:
+  #     - spacemandmm
+  #     - codebase
+  #     - renderbus
+  #   build:
+  #     context: .
+  #     dockerfile: serve/serve-dockerfile
+  #   tty: true
+  #   ports: 
+  #     - "8080:8080"
+  #   volumes: 
+  #     - ./output:/output
 
 volumes:
   codebase:

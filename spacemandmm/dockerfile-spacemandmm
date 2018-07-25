@@ -10,5 +10,5 @@ RUN cargo build -p cli --release
 # Clean apt cache
 RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
-ENTRYPOINT ['/usr/src/spacemandmm/target/release/dmm-tools minimap']
+ENTRYPOINT ['target/release/dmm-tools minimap']
 CMD ['--help']

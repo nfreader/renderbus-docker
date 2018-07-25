@@ -1,0 +1,8 @@
+FROM mesosphere/aws-cli
+
+WORKDIR /tmp
+
+COPY upload/upload.sh upload.sh
+RUN chmod +x upload.sh
+
+ENTRYPOINT ["/bin/sh", "upload.sh"]

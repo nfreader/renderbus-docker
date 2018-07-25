@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  upload:
+    build:
+      context: .
+      dockerfile: upload/aws-dockerfile
+    tty: true
+    volumes: 
+      - ./output:/output
+    command: upload.sh
+    env_file:
+        - aws_keys.env

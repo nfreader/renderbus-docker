@@ -1,0 +1,10 @@
+FROM python:2.7
+
+WORKDIR /tmp
+
+ADD serve/index.html index.html
+
+RUN ln -s /output /tmp/maps
+
+EXPOSE 8080
+CMD ["python", "-m", "SimpleHTTPServer", "8080"]

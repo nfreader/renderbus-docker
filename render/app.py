@@ -10,6 +10,9 @@ for j in json_files:
 
 print(maps)
 
+with open('/output/maps.json', 'w') as outfile:
+  json.dump(maps, outfile)
+
 for map in maps:
   command = "/usr/src/spacemandmm/target/release/dmm-tools minimap -o /tmp {0}".format('_maps/'+map['map_path']+'/'+map['map_file'])
   call(command.split(), shell=False, cwd="/usr/src/codebase")
@@ -18,5 +21,7 @@ for map in maps:
   call(crushcmd.split(), shell=False, cwd="/usr/src/codebase")
 
   tilecommand = "./tile.sh /output/{0}-1.png {1} 256 5 /output".format(map['map_file'].replace('.dmm',''),map['map_name'].replace(' ',''))
+
   print("Tiling {0}...".format(map['map_name']))
   call(tilecommand.split(), shell=False, cwd="/usr/src/render")
+
